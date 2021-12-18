@@ -20,4 +20,9 @@
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
     </PropertyGroup>
 
+    <ItemGroup Label="Documents">
+        <None Include="..\Readme.md" Pack="true" PackagePath="" />
+        <None Include="..\LICENSE" Pack="true" PackagePath="" />
+    </ItemGroup>
+
 </Project>
