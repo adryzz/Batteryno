@@ -116,15 +116,15 @@ public class Battery
         Status = Enum.Parse<BatteryStatus>(File.ReadAllText(Path.Combine(BatteryPath, "status")));
         Type = Enum.Parse<PowerSourceType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
         Technology = parseTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology")));
-        Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).TrimEnd();
-        ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").TrimEnd());
-        SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number").TrimEnd());
+        Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).ReplaceLineEndings("");
+        ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").ReplaceLineEndings(""));
+        SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number").ReplaceLineEndings(""));
         Present = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present"))) != 0;
     }
 
     private BatteryTechnology parseTechnology(string technology)
     {
-        switch (technology)
+        switch (technology.ReplaceLineEndings(""))
         {
             case "Li-ion":
                 return BatteryTechnology.LithiumIon;
