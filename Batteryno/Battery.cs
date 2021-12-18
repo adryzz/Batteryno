@@ -114,7 +114,7 @@ public class Battery
         {
             return File.ReadAllText(path);
         }
-        catch (FileNotFoundException e)
+        catch (FileNotFoundException)
         {
             throw new InvalidOperationException("The specified battery isn't present in the system");
         }

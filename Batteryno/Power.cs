@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Runtime.Versioning;
 
 namespace Batteryno
 {
+    [SupportedOSPlatform("linux")]
     public static class Power
     {
         private const string CLASS_PATH = "/sys/class/power_supply/";
@@ -18,7 +19,7 @@ namespace Batteryno
             }
             return batteries;
         }
-
+        
         public static PowerSupply GetPowerSupply()
         {
             string path = Path.Combine(CLASS_PATH, "AC");

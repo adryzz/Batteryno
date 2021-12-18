@@ -35,7 +35,7 @@ namespace Batteryno
             {
                 return File.ReadAllText(path);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 throw new InvalidOperationException("The specified power supply isn't present in the system");
             }
