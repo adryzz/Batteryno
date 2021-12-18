@@ -119,7 +119,7 @@ public class Battery
         Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer"));
         ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name"));
         SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number"));
-        Present = bool.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present")));
+        Present = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present"))) != 0;
     }
 
     private string convertTechnology(string technology)
