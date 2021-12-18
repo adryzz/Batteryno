@@ -116,9 +116,9 @@ public class Battery
         Status = Enum.Parse<BatteryStatus>(File.ReadAllText(Path.Combine(BatteryPath, "status")));
         Type = Enum.Parse<BatteryType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
         //Technology = Enum.Parse<BatteryTechnology>(convertTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology"))));
-        Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer"));
-        ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name"));
-        SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number"));
+        Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).TrimEnd();
+        ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").TrimEnd());
+        SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number").TrimEnd());
         Present = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present"))) != 0;
     }
 
