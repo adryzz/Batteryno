@@ -13,3 +13,6 @@ Console.WriteLine($"Battery percentage: {myBattery.Capacity}%");
 ```
 
 You can also find an example [here](Batteryno.Example/Program.cs).
+
+## Why did you name it Batteryno?
+![](https://i.imgur.com/8qpYNN6.png)
