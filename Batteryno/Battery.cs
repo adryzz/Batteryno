@@ -103,7 +103,7 @@ public class Battery
         refresh();
     }
 
-    private void refresh()
+    protected virtual void refresh()
     {
         Capacity = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "capacity")));
         CapacityLevel = Enum.Parse<CapacityLevel>(File.ReadAllText(Path.Combine(BatteryPath, "capacity_level")));
