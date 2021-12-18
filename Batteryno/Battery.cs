@@ -13,72 +13,72 @@ public class Battery
     /// <summary>
     /// The battery capacity (percentage)
     /// </summary>
-    public int Capacity { get; protected set; }
+    public int Capacity => int.Parse(readValue(Path.Combine(BatteryPath, "capacity")));
 
     /// <summary>
     /// The battery capacity level
     /// </summary>
-    public CapacityLevel CapacityLevel { get; protected set; }
+    public CapacityLevel CapacityLevel => Enum.Parse<CapacityLevel>(readValue(Path.Combine(BatteryPath, "capacity_level")));
 
     /// <summary>
     /// The battery energy when full (uWh)
     /// </summary>
-    public long FullEnergy { get; protected set; }
+    public long FullEnergy => long.Parse(readValue(Path.Combine(BatteryPath, "energy_full")));
 
     /// <summary>
     /// The battery energy when full and new (uWh)
     /// </summary>
-    public long FullDesignEnergy { get; protected set; }
+    public long FullDesignEnergy => long.Parse(readValue(Path.Combine(BatteryPath, "energy_full_design")));
 
     /// <summary>
     /// The battery energy (uWh)
     /// </summary>
-    public long Energy { get; protected set; }
+    public long Energy => long.Parse(readValue(Path.Combine(BatteryPath, "energy_now")));
     
     /// <summary>
     /// The battery voltage (uV)
     /// </summary>
-    public long Voltage { get; protected set; }
+    public long Voltage => long.Parse(readValue(Path.Combine(BatteryPath, "voltage_now")));
     
     /// <summary>
     /// The minimum battery voltage (uV)
     /// </summary>
-    public long MinimumVoltage { get; protected set; }
+    public long MinimumVoltage => long.Parse(readValue(Path.Combine(BatteryPath, "voltage_min_design")));
     
     /// <summary>
     /// The number of charge cycles that happened
     /// </summary>
-    public int ChargeCycles { get; protected set; }
+    public int ChargeCycles => int.Parse(readValue(Path.Combine(BatteryPath, "cycle_count")));
     
     /// <summary>
     /// The status of the battery
     /// </summary>
-    public BatteryStatus Status { get; protected set; }
+    public BatteryStatus Status => Enum.Parse<BatteryStatus>(readValue(Path.Combine(BatteryPath, "status")));
     
     /// <summary>
     /// The type of battery
     /// </summary>
-    public PowerSourceType Type { get; protected set; }
+    public PowerSourceType Type => Enum.Parse<PowerSourceType>(readValue(Path.Combine(BatteryPath, "type")));
     
     /// <summary>
     /// The type of battery
     /// </summary>
-    public BatteryTechnology Technology { get; protected set; }
+    public BatteryTechnology Technology => parseTechnology(readValue(Path.Combine(BatteryPath, "technology")));
     
     /// <summary>
     /// The battery manufacturer
     /// </summary>
-    public string Manufacturer { get; protected set; }
+    public string Manufacturer => readValue(Path.Combine(BatteryPath, "manufacturer")).ReplaceLineEndings("");
     
     /// <summary>
     /// The battery's model name
     /// </summary>
-    public string ModelName { get; protected set; }
+    public string ModelName => readValue(Path.Combine(BatteryPath, "model_name").ReplaceLineEndings(""));
     
     /// <summary>
     /// The battery's serial number
     /// </summary>
-    public string SerialNumber { get; protected set; }
+    public string SerialNumber => readValue(Path.Combine(BatteryPath, "serial_number").ReplaceLineEndings(""));
     
     /// <summary>
     /// Whether the battery is present or not
@@ -86,40 +86,15 @@ public class Battery
     /// <remarks>
     /// Should always be true on most systems
     /// </remarks>
-    public bool Present { get; protected set; }
+    public bool Present => int.Parse(readValue(Path.Combine(BatteryPath, "present"))) != 0;
 
     internal Battery(string path)
     {
-        BatteryPath = path;
-        refresh();
-    }
-
-    public virtual void Refresh()
-    {
-        if (!Directory.Exists(BatteryPath))
+        if (!Directory.Exists(path))
         {
             throw new InvalidOperationException("The specified battery isn't present in the system");
         }
-        refresh();
-    }
-
-    private void refresh()
-    {
-        Capacity = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "capacity")));
-        CapacityLevel = Enum.Parse<CapacityLevel>(File.ReadAllText(Path.Combine(BatteryPath, "capacity_level")));
-        FullEnergy = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "energy_full")));
-        FullDesignEnergy = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "energy_full_design")));
-        Energy = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "energy_now")));
-        Voltage = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "voltage_now")));
-        MinimumVoltage = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "voltage_min_design")));
-        ChargeCycles = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "cycle_count")));
-        Status = Enum.Parse<BatteryStatus>(File.ReadAllText(Path.Combine(BatteryPath, "status")));
-        Type = Enum.Parse<PowerSourceType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
-        Technology = parseTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology")));
-        Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).ReplaceLineEndings("");
-        ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").ReplaceLineEndings(""));
-        SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number").ReplaceLineEndings(""));
-        Present = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present"))) != 0;
+        BatteryPath = path;
     }
 
     private BatteryTechnology parseTechnology(string technology)
@@ -131,5 +106,17 @@ public class Battery
         }
 
         return BatteryTechnology.Unknown;
+    }
+
+    private string readValue(string path)
+    {
+        try
+        {
+            return File.ReadAllText(path);
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new InvalidOperationException("The specified battery isn't present in the system");
+        }
     }
 }

@@ -13,32 +13,32 @@ namespace Batteryno
         /// <summary>
         /// The type of power supply
         /// </summary>
-        public PowerSourceType Type { get; protected set; }
+        public PowerSourceType Type => Enum.Parse<PowerSourceType>(readValue(Path.Combine(PowerSupplyPath, "type")));
         
         /// <summary>
         /// Whether the power source is connected or not
         /// </summary>
-        public bool Online { get; protected set; }
+        public bool Online => int.Parse(readValue(Path.Combine(PowerSupplyPath, "online"))) != 0;
 
         internal PowerSupply(string path)
         {
-            PowerSupplyPath = path;
-            refresh();
-        }
-
-        public virtual void Refresh()
-        {
-            if (!Directory.Exists(PowerSupplyPath))
+            if (!Directory.Exists(path))
             {
                 throw new InvalidOperationException("The specified power supply isn't present in the system");
             }
-            refresh();
+            PowerSupplyPath = path;
         }
-
-        private void refresh()
+        
+        private string readValue(string path)
         {
-            Type = Enum.Parse<PowerSourceType>(File.ReadAllText(Path.Combine(PowerSupplyPath, "type")));
-            Online = int.Parse(File.ReadAllText(Path.Combine(PowerSupplyPath, "online"))) != 0;
+            try
+            {
+                return File.ReadAllText(path);
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new InvalidOperationException("The specified power supply isn't present in the system");
+            }
         }
     }
 }
