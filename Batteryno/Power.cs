@@ -11,8 +11,9 @@ namespace Batteryno
         public static IEnumerable<Battery> GetConnectedBatteries()
         {
             List<Battery> batteries = new List<Battery>();
-            IEnumerable<string> bats = Directory.EnumerateDirectories(CLASS_PATH).Where(x => x.StartsWith("BAT"));
+            IEnumerable<string> bats = Directory.EnumerateDirectories(CLASS_PATH);
             Console.WriteLine($"Found {bats.Count()} batteries");
+            Console.ReadLine();
             return batteries;
         }
     }
