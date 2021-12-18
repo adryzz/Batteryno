@@ -23,6 +23,7 @@ namespace Batteryno
         internal PowerSupply(string path)
         {
             PowerSupplyPath = path;
+            refresh();
         }
 
         public virtual void Refresh()
