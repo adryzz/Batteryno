@@ -6,4 +6,18 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+
+    <PropertyGroup Label="Nuget">
+        <PackageId>Batteryno</PackageId>
+        <Version>1.0.1</Version>
+        <Authors>Adryzz</Authors>
+        <PackageTags>Battery;Power;</PackageTags>
+        <Title>Batteryno</Title>
+        <Description>Simple linux power monitoring library</Description>
+        <Copyright>2021 Adryzz</Copyright>
+        <PackageProjectUrl>https://github.com/adryzz/Batteryno</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
 </Project>
