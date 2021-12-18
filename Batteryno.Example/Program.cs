@@ -29,7 +29,7 @@ namespace Batteryno.Example
                     Console.WriteLine($"Charge cycles: {batt.ChargeCycles}");
                     Console.WriteLine($"Status: {batt.Status}");
                     Console.WriteLine($"Battery type: {batt.Type}");
-                    //Console.WriteLine($"Battery technology: {batt.Technology}");
+                    Console.WriteLine($"Battery technology: {batt.Technology}");
                     Console.WriteLine($"Manufacturer: {batt.Manufacturer}");
                     Console.WriteLine($"Model name: {batt.ModelName}");
                     Console.WriteLine($"Serial number: {batt.SerialNumber}");

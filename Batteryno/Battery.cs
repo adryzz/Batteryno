@@ -115,21 +115,21 @@ public class Battery
         ChargeCycles = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "cycle_count")));
         Status = Enum.Parse<BatteryStatus>(File.ReadAllText(Path.Combine(BatteryPath, "status")));
         Type = Enum.Parse<PowerSourceType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
-        //Technology = Enum.Parse<BatteryTechnology>(convertTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology"))));
+        Technology = parseTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology")));
         Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).TrimEnd();
         ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").TrimEnd());
         SerialNumber = File.ReadAllText(Path.Combine(BatteryPath, "serial_number").TrimEnd());
         Present = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "present"))) != 0;
     }
 
-    private string convertTechnology(string technology)
+    private BatteryTechnology parseTechnology(string technology)
     {
         switch (technology)
         {
             case "Li-ion":
-                return "Li_ion";
+                return BatteryTechnology.LithiumIon;
         }
 
-        return technology;
+        return BatteryTechnology.Unknown;
     }
 }
