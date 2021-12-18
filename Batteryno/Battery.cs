@@ -58,7 +58,7 @@ public class Battery
     /// <summary>
     /// The type of battery
     /// </summary>
-    public BatteryType Type { get; protected set; }
+    public PowerSourceType Type { get; protected set; }
     
     /// <summary>
     /// The type of battery
@@ -94,7 +94,7 @@ public class Battery
         refresh();
     }
 
-    public void Refresh()
+    public virtual void Refresh()
     {
         if (!Directory.Exists(BatteryPath))
         {
@@ -103,7 +103,7 @@ public class Battery
         refresh();
     }
 
-    protected virtual void refresh()
+    private void refresh()
     {
         Capacity = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "capacity")));
         CapacityLevel = Enum.Parse<CapacityLevel>(File.ReadAllText(Path.Combine(BatteryPath, "capacity_level")));
@@ -114,7 +114,7 @@ public class Battery
         MinimumVoltage = long.Parse(File.ReadAllText(Path.Combine(BatteryPath, "voltage_min_design")));
         ChargeCycles = int.Parse(File.ReadAllText(Path.Combine(BatteryPath, "cycle_count")));
         Status = Enum.Parse<BatteryStatus>(File.ReadAllText(Path.Combine(BatteryPath, "status")));
-        Type = Enum.Parse<BatteryType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
+        Type = Enum.Parse<PowerSourceType>(File.ReadAllText(Path.Combine(BatteryPath, "type")));
         //Technology = Enum.Parse<BatteryTechnology>(convertTechnology(File.ReadAllText(Path.Combine(BatteryPath, "technology"))));
         Manufacturer = File.ReadAllText(Path.Combine(BatteryPath, "manufacturer")).TrimEnd();
         ModelName = File.ReadAllText(Path.Combine(BatteryPath, "model_name").TrimEnd());

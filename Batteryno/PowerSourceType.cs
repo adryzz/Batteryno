@@ -1,6 +1,6 @@
 namespace Batteryno
 {
-    public enum BatteryType
+    public enum PowerSourceType
     {
         Battery,
         Ups,

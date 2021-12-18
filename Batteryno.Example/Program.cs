@@ -8,7 +8,7 @@ namespace Batteryno.Example
     {
         public static void Main(string[] args)
         {
-            var batteries = Power.GetConnectedBatteries();
+            var batteries = Power.GetBatteries();
             if (batteries.Count() == 0)
             {
                 Console.WriteLine("No batteries found.");
@@ -34,7 +34,19 @@ namespace Batteryno.Example
                     Console.WriteLine($"Model name: {batt.ModelName}");
                     Console.WriteLine($"Serial number: {batt.SerialNumber}");
                     Console.WriteLine($"Is present: {batt.Present}");
+                    Console.WriteLine("");
                 }
+            }
+
+            try
+            {
+                PowerSupply ps = Power.GetPowerSupply();
+                Console.WriteLine($"Power supply type: {ps.Type}");
+                Console.WriteLine($"Is online: {ps.Online}");
+            }
+            catch (PlatformNotSupportedException e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
