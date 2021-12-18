@@ -29,7 +29,7 @@ namespace Batteryno
         {
             if (!Directory.Exists(PowerSupplyPath))
             {
-                throw new InvalidOperationException("The specified battery isn't present in the system");
+                throw new InvalidOperationException("The specified power supply isn't present in the system");
             }
             refresh();
         }
