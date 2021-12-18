@@ -12,8 +12,10 @@ namespace Batteryno
         {
             List<Battery> batteries = new List<Battery>();
             IEnumerable<string> bats = Directory.EnumerateDirectories(CLASS_PATH, "BAT*");
-            Console.WriteLine($"Found {bats.Count()} batteries");
-            Console.ReadLine();
+            foreach (string battery in bats)
+            {
+                batteries.Add(new Battery(battery));
+            }
             return batteries;
         }
     }
