@@ -41,6 +41,7 @@ namespace Batteryno.Example
             try
             {
                 PowerSupply ps = Power.GetPowerSupply();
+                Console.WriteLine($"Power supply path: {ps.PowerSupplyPath}");
                 Console.WriteLine($"Power supply type: {ps.Type}");
                 Console.WriteLine($"Is online: {ps.Online}");
             }
