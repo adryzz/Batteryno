@@ -1,4 +1,5 @@
 # Batteryno
+![Nuget](https://img.shields.io/nuget/v/Batteryno)
 
 An easy to use C# power library for linux.
 
